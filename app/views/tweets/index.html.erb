@@ -1,0 +1,27 @@
+<%= link_to 'ここを押してね！', :controller => "tweets", :action => "new" %>
+
+<% if @tweets %>
+  <% @tweets.each do |t| %>
+    <a href="<%= tweet_path(id: t.id) %>"><%= t.body %></a>
+    <div class="field">
+      <span>評価</span><br>
+      <span class="average-star" score="<%= t.average %>"></span>
+      <span><%= t.average %></span>
+    </div>
+  <% end %>
+<% end %>
+
+<script>
+  window.addEventListener('turbolinks:load',()=>{
+    console.log("index");
+    const allStars = $(".average-star")
+    allStars.each((_, elem)=>{
+      const stars = $(elem)
+      stars.raty({
+        path: "/",
+        readOnly: true,
+        score: stars.attr("score")
+      })
+    })
+  });
+</script>
