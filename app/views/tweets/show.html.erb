@@ -1,0 +1,30 @@
+<%= sanitize @tweet.body, tags: %w(h1 h2 h3 h4 h5 h6 ul ol li p a img table tr td em br strong div), attributes:  %w(id class href) %>
+<span>評価</span>
+  <div class="field">
+    <span>味</span>
+    <span id="taste-star" score="<%= @tweet.taste %>"></span>
+    <%= @tweet.taste %>
+  </div>
+  <div class="field">
+    <span>コストパフォーマンス</span>
+    <span id="cost_performance-star" score="<%= @tweet.cost_performance %>"></span>
+    <%= @tweet.cost_performance %>
+  </div>
+
+  <script type="text/javascript">
+  window.addEventListener('turbolinks:load',()=>{
+    console.log("show");
+    const tasteStar = $("#taste-star")
+    tasteStar.raty({
+      path: "/",
+      readOnly: true,
+      score: tasteStar.attr("score")
+    })
+    const costPerformanceStar = $("#cost_performance-star")
+    costPerformanceStar.raty({
+      path: "/",
+      readOnly: true,
+      score: costPerformanceStar.attr("score")
+    })
+  })
+</script>
